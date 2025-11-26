@@ -24,9 +24,9 @@
 </head>
 
 <body class="<%= controller_name %> <%= action_name %>">
+<%= render(partial: "shared/flash") %>
+<%= render(partial: "shared/navbar") %>
 <main class="container mx-auto mt-28 px-5 flex flex-col">
-  <p class="notice"><%= notice %></p>
-  <p class="alert hidden"><%= alert %></p>
   <div class="flex justify-center">
       <div class="card card-lg card-border bg-base-100 w-96 shadow-sm">
         <div class="card-body">
