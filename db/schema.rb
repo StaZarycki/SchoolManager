@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_26_153139) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_26_162639) do
+  create_table "class_teachers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "school_class_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["school_class_id"], name: "index_class_teachers_on_school_class_id"
+    t.index ["user_id"], name: "index_class_teachers_on_user_id"
+  end
+
+  create_table "school_classes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -19,8 +34,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_26_153139) do
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "role", default: 0, null: false
+    t.integer "school_class_id"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["school_class_id"], name: "index_users_on_school_class_id"
   end
+
+  add_foreign_key "class_teachers", "school_classes"
+  add_foreign_key "class_teachers", "users"
+  add_foreign_key "users", "school_classes"
 end
