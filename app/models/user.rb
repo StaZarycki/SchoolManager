@@ -17,4 +17,8 @@ class User < ApplicationRecord
   validates :role, presence: true
   validates :school_class_id, presence: true, if: :student?
   validates :school_class_id, absence: true, if: -> { teacher? || administrator? }
+
+  def classes
+    student? ? [school_class].compact : taught_classes
+  end
 end

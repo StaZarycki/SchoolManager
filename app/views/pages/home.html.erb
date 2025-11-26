@@ -1,1 +1,5 @@
-<h1>Hello World!</h1>
+<% if @classes.any? %>
+  <%= render(@classes) %>
+<% else %>
+  <h2>No entries yet.</h2>
+<% end %>
