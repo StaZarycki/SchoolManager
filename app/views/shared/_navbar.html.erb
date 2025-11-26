@@ -12,19 +12,9 @@
       <% if user_signed_in? %>
       <li><%= link_to("Sign out", destroy_user_session_path, data: { turbo_method: :delete}) %></li>
       <% else %>
-        <li>Sign In</li>
-        <li>Sign Up</li>
+        <li><%= link_to("Sign In", new_user_session_path) %></li>
+        <li><%= link_to("Sign Up", new_user_registration_path) %></li>
       <% end %>
-      <li><a>Link</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul class="bg-base-100 rounded-t-none p-2">
-            <li><a>Link 1</a></li>
-            <li><a>Link 2</a></li>
-          </ul>
-        </details>
-      </li>
     </ul>
   </div>
 </div>
