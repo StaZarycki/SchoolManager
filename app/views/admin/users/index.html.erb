@@ -1,0 +1,38 @@
+<div class="container mx-auto px-5 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Manage Users</h1>
+    <%= link_to "New User", new_admin_user_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+      <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Class</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><span class="badge <%= badge_class_for_role(user.role) %>"><%= user.role %></span></td>
+          <td><%= user.school_class&.name || '-' %></td>
+          <td><%= user.created_at.strftime("%Y-%m-%d") %></td>
+          <td>
+            <div class="flex gap-2">
+              <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-ghost" %>
+              <%= button_to "Delete", admin_user_path(user), method: :delete,
+                            data: { confirm: "Are you sure?" },
+                            class: "btn btn-sm btn-error" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

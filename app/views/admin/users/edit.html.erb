@@ -1,0 +1,66 @@
+<div class="card card-lg card-border bg-base-100 w-96 shadow-sm">
+  <div class="card-body">
+    <h2 class="text-2xl font-bold mb-6">Edit User</h2>
+
+    <fieldset class="fieldset">
+      <%= form_with(model: @user, url: admin_user_path(@user)) do |f| %>
+        <% if @user.errors.any? %>
+          <div class="alert alert-error mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Validation error</span>
+          </div>
+        <% end %>
+
+        <div class="field mb-4">
+          <%= f.label :email, class: "label" %><br/>
+          <%= f.email_field :email, autofocus: true, class: "input", placeholder: "Email" %>
+          <%= error_message_for @user, :email %>
+        </div>
+
+        <div class="field mb-4">
+          <%= f.label :role, class: "label" %><br/>
+          <%= f.select :role, User.roles.keys, {},
+                       { class: "select select-bordered",
+                         data: { action: "change->role#toggleClass" } } %>
+        </div>
+
+        <div class="field mb-4 <%= 'field_with_errors' if @user.errors[:school_class_id].any? %>">
+          <%= f.label :school_class_id, "Class", class: "label" %><br/>
+          <%= f.collection_select :school_class_id, SchoolClass.all, :id, :name,
+                                  { include_blank: "Select class" },
+                                  { class: "select select-bordered w-full" } %>
+          <%= error_message_for @user, :school_class_id %>
+        </div>
+
+        <div class="field mb-4">
+          <%= f.label :password, class: "label" %>
+          <i class="label">(leave blank if you don't want to change it)</i><br/>
+          <%= f.password_field :password, autocomplete: "new-password", class: "input", placeholder: "Password" %>
+          <%= error_message_for @user, :password %>
+        </div>
+
+        <div class="field mb-4">
+          <%= f.label :password_confirmation, class: "label" %><br/>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: "Confirm Password" %>
+          <%= error_message_for @user, :password_confirmation %>
+        </div>
+
+        <div class="actions mb-4">
+          <%= f.submit "Update User", class: "btn btn-primary" %>
+          <%= link_to "Cancel", admin_users_path, class: "btn btn-soft w-24 ml-2" %>
+        </div>
+      <% end %>
+
+      <h3 class="label">Delete this user</h3>
+
+      <div class="mb-4">
+        <%= button_to "Delete User", admin_user_path(@user),
+                      class: "btn btn-neutral",
+                      data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+                      method: :delete %>
+      </div>
+    </fieldset>
+  </div>
+</div>
