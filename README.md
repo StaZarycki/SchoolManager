@@ -6,4 +6,5 @@ A simple school management app with capability to manage students, teachers and 
 
 ## Demo
 
-[![Watch the video](https://github.com/StaZarycki/SchoolManager/raw/refs/heads/master/demo/demo.mp4)](https://github.com/StaZarycki/SchoolManager/raw/refs/heads/master/demo/demo.mp4)
+https://github.com/user-attachments/assets/d332dba1-0b47-4b34-9e98-58cadfe71afc
+
