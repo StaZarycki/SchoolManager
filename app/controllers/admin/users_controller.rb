@@ -49,7 +49,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if @user == current_user
-      redirect_to admin_users_path, error: "You cannot delete yourself"
+      redirect_to admin_users_path, flash: { error: "You cannot delete yourself" }
     else
       @user.destroy
       redirect_to admin_uses_path, notice: "User deleted successfully"

@@ -1,0 +1,38 @@
+<div class="card card-lg card-border bg-base-100 w-96 shadow-sm">
+  <div class="card-body">
+    <h2 class="text-2xl font-bold mb-6">Edit Class</h2>
+
+    <fieldset class="fieldset">
+      <%= form_with(model: @school_class, url: admin_school_class_path(@school_class)) do |f| %>
+        <% if @school_class.errors.any? %>
+          <div class="alert alert-error mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Validation error</span>
+          </div>
+        <% end %>
+
+        <div class="field mb-4">
+          <%= f.label :name, class: "label" %><br/>
+          <%= f.text_field :name, autofocus: true, class: "input", placeholder: "Class name (e.g., 1A)" %>
+          <%= error_message_for @school_class, :name %>
+        </div>
+
+        <div class="actions mb-4">
+          <%= f.submit "Update Class", class: "btn btn-primary" %>
+          <%= link_to "Cancel", admin_school_classes_path, class: "btn btn-soft w-24 ml-2" %>
+        </div>
+      <% end %>
+
+      <h3 class="label">Delete this class</h3>
+
+      <div class="mb-4">
+        <%= button_to "Delete Class", admin_school_class_path(@school_class),
+                      class: "btn btn-neutral",
+                      data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" },
+                      method: :delete %>
+      </div>
+    </fieldset>
+  </div>
+</div>

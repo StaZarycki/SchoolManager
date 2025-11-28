@@ -1,0 +1,50 @@
+<div class="container mx-auto px-5 py-8">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h1 class="card-title text-3xl"><%= @school_class.name %></h1>
+
+      <div class="divider"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Teachers -->
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Teachers (<%= @teachers.count %>)</h2>
+          <% if @teachers.any? %>
+            <ul class="space-y-2">
+              <% @teachers.each do |teacher| %>
+                <li class="flex items-center gap-2">
+                  <span class="badge badge-primary">Teacher</span>
+                  <%= teacher.email %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-gray-500">No teachers assigned</p>
+          <% end %>
+        </div>
+
+        <!-- Students -->
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Students (<%= @students.count %>)</h2>
+          <% if @students.any? %>
+            <ul class="space-y-2">
+              <% @students.each do |student| %>
+                <li class="flex items-center gap-2">
+                  <span class="badge badge-secondary">Student</span>
+                  <%= student.email %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-gray-500">No students in this class</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card-actions justify-end mt-6">
+        <%= link_to "Edit", edit_admin_school_class_path(@school_class), class: "btn btn-primary" %>
+        <%= link_to "Back", admin_school_classes_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </div>
+</div>
