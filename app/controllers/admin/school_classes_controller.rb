@@ -53,7 +53,7 @@ class Admin::SchoolClassesController < ApplicationController
   end
 
   def school_class_params
-    params.require(:school_class).permit(:name)
+    params.require(:school_class).permit(:name, teacher_ids: [])
   end
 
   def require_admin

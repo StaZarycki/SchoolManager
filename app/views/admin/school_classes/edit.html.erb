@@ -19,6 +19,22 @@
           <%= error_message_for @school_class, :name %>
         </div>
 
+        <div class="field mb-4">
+          <%= f.label :teacher_ids, "Assigned Teachers", class: "label" %><br/>
+          <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-600 rounded p-3">
+            <% User.teacher.each do |teacher| %>
+              <div class="form-control">
+                <label class="label cursor-pointer justify-start gap-2">
+                  <%= f.check_box :teacher_ids,
+                                  { multiple: true, checked: @school_class.teacher_ids.include?(teacher.id) },
+                                  teacher.id, nil %>
+                  <span class="label-text"><%= teacher.email %></span>
+                </label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
         <div class="actions mb-4">
           <%= f.submit "Update Class", class: "btn btn-primary" %>
           <%= link_to "Cancel", admin_school_classes_path, class: "btn btn-soft w-24 ml-2" %>

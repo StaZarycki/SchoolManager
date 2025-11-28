@@ -49,6 +49,24 @@
               <%= error_message_for @user, :password_confirmation %>
             </div>
 
+            <div class="field mb-4" id="taught-classes-field" style="display: none;">
+              <%= f.label :taught_class_ids, "Assigned Classes", class: "label" %><br/>
+              <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded p-3">
+                <% if SchoolClass.any? %>
+                  <% SchoolClass.all.order(:name).each do |school_class| %>
+                    <div class="form-control">
+                      <label class="label cursor-pointer justify-start gap-2">
+                        <%= f.check_box :taught_class_ids, { multiple: true }, school_class.id, nil %>
+                        <span class="label-text"><%= school_class.name %></span>
+                      </label>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <p class="text-sm text-gray-500">No classes available. Create classes first.</p>
+                <% end %>
+              </div>
+            </div>
+
             <div class="actions mb-4">
               <%= f.submit "Create User", class: "btn btn-primary" %>
               <%= link_to "Cancel", admin_users_path, class: "btn btn-soft w-24 ml-2" %>

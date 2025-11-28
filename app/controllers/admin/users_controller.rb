@@ -70,7 +70,13 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     permitted = [:email, :role, :password, :password_confirmation]
-    permitted << :school_class_id if params[:user][:role] == "student"
+
+    if params[:user][:role] == "student"
+      permitted << :school_class_id
+    elsif params[:user][:role] == "teacher"
+      permitted << { taught_class_ids: [] }
+    end
+
     params.require(:user).permit(permitted)
   end
 end

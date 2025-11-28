@@ -3,7 +3,7 @@
     <h2 class="text-2xl font-bold mb-6">Edit User</h2>
 
     <fieldset class="fieldset">
-      <%= form_with(model: @user, url: admin_user_path(@user)) do |f| %>
+      <%= form_with(model: @user, url: admin_user_path(@user), data: { controller: "role" }) do |f| %>
         <% if @user.errors.any? %>
           <div class="alert alert-error mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
@@ -26,7 +26,7 @@
                          data: { action: "change->role#toggleClass" } } %>
         </div>
 
-        <div class="field mb-4 <%= 'field_with_errors' if @user.errors[:school_class_id].any? %>">
+        <div class="field mb-4" id="school-class-field" style="<%= 'display: none;' unless @user.student? %>">
           <%= f.label :school_class_id, "Class", class: "label" %><br/>
           <%= f.collection_select :school_class_id, SchoolClass.all, :id, :name,
                                   { include_blank: "Select class" },
@@ -45,6 +45,26 @@
           <%= f.label :password_confirmation, class: "label" %><br/>
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: "Confirm Password" %>
           <%= error_message_for @user, :password_confirmation %>
+        </div>
+
+        <div class="field mb-4" id="taught-classes-field" style="<%= 'display: none;' unless @user.teacher? %>">
+          <%= f.label :taught_class_ids, "Assigned Classes", class: "label" %><br/>
+          <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded p-3">
+            <% if SchoolClass.any? %>
+              <% SchoolClass.all.order(:name).each do |school_class| %>
+                <div class="form-control">
+                  <label class="label cursor-pointer justify-start gap-2">
+                    <%= f.check_box :taught_class_ids,
+                                    { multiple: true, checked: @user.taught_class_ids.include?(school_class.id) },
+                                    school_class.id, nil %>
+                    <span class="label-text"><%= school_class.name %></span>
+                  </label>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-sm text-gray-500">No classes available. Create classes first.</p>
+            <% end %>
+          </div>
         </div>
 
         <div class="actions mb-4">
