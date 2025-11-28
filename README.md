@@ -1,24 +1,9 @@
-# README
+# School Manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is my first Ruby on Rails application.
 
-Things you may want to cover:
+A simple school management app with capability to manage students, teachers and classes.
 
-* Ruby version
+## Demo
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[![Watch the video](https://github.com/StaZarycki/SchoolManager/raw/refs/heads/master/demo/demo.mp4)](https://github.com/StaZarycki/SchoolManager/raw/refs/heads/master/demo/demo.mp4)
